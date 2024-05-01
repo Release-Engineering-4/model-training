@@ -136,7 +136,7 @@ evaluation=10.0 - ((float(5 * error + warning + refactor + convention) / stateme
 # and msvs (visual studio). You can also give a reporter class, e.g.
 # mypackage.mymodule.MyReporterClass.
 #output-format=text
-output-format=text:report.txt,colorized
+output-format=text,colorized
 
 # Tells whether to display a full report or only the messages.
 reports=yes
