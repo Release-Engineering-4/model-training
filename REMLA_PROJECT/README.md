@@ -1,4 +1,4 @@
-REMLA_TEAM_4_URL_PHISHING
+URL PHISHING
 ==============================
 
 URL phishing detection using CNN.
