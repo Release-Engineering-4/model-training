@@ -44,7 +44,7 @@ def model_definition():
 
     model.add(Dense(len(params['categories'])-1, activation='sigmoid'))
 
-    model.save("REMLA_PROJECT\src\models\model.h5")
+    model.save("REMLA_PROJECT\models\model.h5")
 
 if __name__=='__main__':
     model_definition() 

@@ -3,7 +3,7 @@ from keras.models import load_model
 import numpy as np
 
 def predict(): 
-    model = load_model("REMLA_PROJECT\src\models\\trained_model.h5")
+    model = load_model("REMLA_PROJECT\models\\trained_model.h5")
     with open("REMLA_PROJECT\data\processed\x_test.pkl", "rb") as f:
         x_test = pickle.load(f)
 

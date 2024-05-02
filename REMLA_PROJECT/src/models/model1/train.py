@@ -3,7 +3,7 @@ from keras.models import load_model
 import yaml
 
 def train_model():
-    model = load_model("REMLA_PROJECT\src\models\model.h5")
+    model = load_model("REMLA_PROJECT\models\model.h5")
     with open("REMLA_PROJECT\configs\params.yaml", "r") as f:
         params = yaml.safe_load(f)
 
@@ -29,7 +29,7 @@ def train_model():
                     validation_data=(x_val, y_val)
                     )
     
-    model.save("REMLA_PROJECT\src\models\\trained_model.h5")
+    model.save("REMLA_PROJECT\models\\trained_model.h5")
 
 if __name__=="__main__":
     train_model() 
