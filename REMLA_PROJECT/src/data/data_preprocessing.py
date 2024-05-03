@@ -20,6 +20,10 @@ def tokenize_data():
         dtype={"label": str, "url": str},
     )
 
+    training_df = training_df[["label", "url"]]
+    testing_df = testing_df[["label", "url"]]
+    validation_df = validation_df[["label", "url"]]
+
     raw_x_train, raw_y_train = training_df["url"].values, training_df["label"].values
     raw_x_test, raw_y_test = testing_df["url"].values, testing_df["label"].values
     raw_x_val, raw_y_val = validation_df["url"].values, validation_df["label"].values
