@@ -595,3 +595,6 @@ overgeneral-exceptions=BaseException,
 
 [pylint.messages control]
 disable=C0114
+
+[deprecated keras import (temporary until fix)]
+disable=E0401
