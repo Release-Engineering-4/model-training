@@ -11,10 +11,10 @@ def predict():
     y_pred_binary = (np.array(y_pred) > 0.5).astype(int)
     y_test=y_test.reshape(-1,1)
 
-    with open("REMLA_PROJECT\src\models\predictions\y_test.pkl", "wb") as f:
+    with open("REMLA_PROJECT\models\predictions\y_test.pkl", "wb") as f:
         pickle.dump(y_test, f)
 
-    with open("REMLA_PROJECT\src\models\predictions\y_pred_binary.pkl", "wb") as f:
+    with open("REMLA_PROJECT\models\predictions\y_pred_binary.pkl", "wb") as f:
         pickle.dump(y_pred_binary, f)
 
 if __name__=="__main__":
