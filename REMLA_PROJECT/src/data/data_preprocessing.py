@@ -10,14 +10,14 @@ def tokenize_data():
     Tokenizes data and saves it.
     """
     training_df = pd.read_csv(
-        "REMLA_PROJECT\\data\\raw\\train_data.csv", dtype={"url": str, "label": str}
+        "REMLA_PROJECT\\data\\raw\\train_data.csv", dtype={"label": str, "url": str}
     )
     testing_df = pd.read_csv(
-        "REMLA_PROJECT\\data\\raw\\test_data.csv", dtype={"url": str, "label": str}
+        "REMLA_PROJECT\\data\\raw\\test_data.csv", dtype={"label": str, "url": str}
     )
     validation_df = pd.read_csv(
         "REMLA_PROJECT\\data\\raw\\validation_data.csv",
-        dtype={"url": str, "label": str},
+        dtype={"label": str, "url": str},
     )
 
     raw_x_train, raw_y_train = training_df["url"].values, training_df["label"].values
@@ -27,15 +27,9 @@ def tokenize_data():
     tokenizer = Tokenizer(lower=True, char_level=True, oov_token="-n-")
     tokenizer.fit_on_texts(raw_x_train + raw_x_val + raw_x_test)
     char_index = tokenizer.word_index
-    x_train = pad_sequences(
-        tokenizer.texts_to_sequences(raw_x_train), maxlen=200
-    )
-    x_val = pad_sequences(
-        tokenizer.texts_to_sequences(raw_x_val), maxlen=200
-    )
-    x_test = pad_sequences(
-        tokenizer.texts_to_sequences(raw_x_test), maxlen=200
-    )
+    x_train = pad_sequences(tokenizer.texts_to_sequences(raw_x_train), maxlen=200)
+    x_val = pad_sequences(tokenizer.texts_to_sequences(raw_x_val), maxlen=200)
+    x_test = pad_sequences(tokenizer.texts_to_sequences(raw_x_test), maxlen=200)
 
     encoder = LabelEncoder()
 
