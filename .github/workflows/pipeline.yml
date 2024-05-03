@@ -33,4 +33,5 @@ jobs:
       
       # Pylinting the project
       - name: Pylint all directories
-        run: pylint .
+        working-directory: REMLA_PROJECT/src
+        run: pylint --rcfile=../../.pylintrc $(git ls-files '*.py')
