@@ -1,4 +1,4 @@
-keras==2.12.0
+keras==2.15.0
 matplotlib==3.7.5
 numpy==1.26.4
 pandas==2.2.2
@@ -7,7 +7,7 @@ dvc==3.50.1
 pylint==2.12.2
 dslinter==2.0.9
 astroid==2.9.3
-tensorflow==2.12.0
+tensorflow==2.13.0
 seaborn
 huggingface_hub 
 datasets 
