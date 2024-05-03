@@ -592,3 +592,6 @@ preferred-modules=
 # "BaseException, Exception".
 overgeneral-exceptions=BaseException,
                        Exception
+
+[pylint.messages control]
+disable=C0114
