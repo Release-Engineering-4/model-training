@@ -36,4 +36,4 @@ jobs:
 
       # Pylinting the project
       - name: Pylint all directories
-        run: pylint --recursive=y .
+        run: pylint .
