@@ -597,4 +597,4 @@ overgeneral-exceptions=BaseException,
 disable=C0114
 
 [deprecated keras import (temporary until fix)]
-disable=E0401
+disable=E0401,E0611
