@@ -32,7 +32,7 @@ jobs:
         run: pip install -r requirements.txt
       
       - name: Change to working dir 
-        run: cd REMLA_PROJECT  
+        run: cd REMLA_PROJECT/src  
 
       # Pylinting the project
       - name: Pylint all directories
