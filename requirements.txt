@@ -7,6 +7,7 @@ dvc==3.50.1
 pylint==2.12.2
 dslinter==2.0.9
 astroid==2.9.3
+tensorflow==2.16.1
 seaborn
 huggingface_hub 
 datasets 

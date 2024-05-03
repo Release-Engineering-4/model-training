@@ -9,31 +9,39 @@ def tokenize_data():
     """
     Tokenizes data and saves it.
     """
-    training_df = pd.read_csv("REMLA_PROJECT\\data\\raw\\train_data.csv")
-    testing_df = pd.read_csv("REMLA_PROJECT\\data\\raw\\test_data.csv")
-    validation_df = pd.read_csv("REMLA_PROJECT\\data\\raw\\validation_data.csv")
+    training_df = pd.read_csv(
+        "REMLA_PROJECT\\data\\raw\\train_data.csv", dtype={"url": str, "label": str}
+    )
+    testing_df = pd.read_csv(
+        "REMLA_PROJECT\\data\\raw\\test_data.csv", dtype={"url": str, "label": str}
+    )
+    validation_df = pd.read_csv(
+        "REMLA_PROJECT\\data\\raw\\validation_data.csv",
+        dtype={"url": str, "label": str},
+    )
+
+    raw_x_train, raw_y_train = training_df["url"].values, training_df["label"].values
+    raw_x_test, raw_y_test = testing_df["url"].values, testing_df["label"].values
+    raw_x_val, raw_y_val = validation_df["url"].values, validation_df["label"].values
 
     tokenizer = Tokenizer(lower=True, char_level=True, oov_token="-n-")
-    tokenizer.fit_on_texts(
-        training_df["url"] + validation_df["url"] + testing_df["url"]
-    )
+    tokenizer.fit_on_texts(raw_x_train + raw_x_val + raw_x_test)
     char_index = tokenizer.word_index
-    sequence_length = 200
     x_train = pad_sequences(
-        tokenizer.texts_to_sequences(training_df["url"]), maxlen=sequence_length
+        tokenizer.texts_to_sequences(raw_x_train), maxlen=200
     )
     x_val = pad_sequences(
-        tokenizer.texts_to_sequences(validation_df["url"]), maxlen=sequence_length
+        tokenizer.texts_to_sequences(raw_x_val), maxlen=200
     )
     x_test = pad_sequences(
-        tokenizer.texts_to_sequences(testing_df["url"]), maxlen=sequence_length
+        tokenizer.texts_to_sequences(raw_x_test), maxlen=200
     )
 
     encoder = LabelEncoder()
 
-    y_train = encoder.fit_transform(training_df["label"])
-    y_val = encoder.transform(validation_df["label"])
-    y_test = encoder.transform(testing_df["label"])
+    y_train = encoder.fit_transform(raw_y_train)
+    y_val = encoder.transform(raw_y_val)
+    y_test = encoder.transform(raw_y_test)
 
     data = {
         "x_train": x_train,
