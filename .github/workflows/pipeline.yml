@@ -31,9 +31,7 @@ jobs:
       - name: Pip install
         run: pip install -r requirements.txt
       
-      - name: Change to working dir 
-        run: cd REMLA_PROJECT/src 
-
       # Pylinting the project
       - name: Pylint all directories
+        working-directory: REMLA_PROJECT/src
         run: pylint $(git ls-files '*.py')
