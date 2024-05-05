@@ -53,8 +53,8 @@ stages:
     deps:
     - path: REMLA_PROJECT/configs/params.yaml
       hash: md5
-      md5: 96df200aa46adc2a3d8046983cb66d4a
-      size: 247
+      md5: f1eab6cf20a0e4cfa1544185b461afe2
+      size: 246
     - path: REMLA_PROJECT/data/processed/char_index.pkl
       hash: md5
       md5: 941dc7e5461b0a429941866a00102b8c
@@ -72,3 +72,46 @@ stages:
       hash: md5
       md5: 9af971264dec06ab5acbf377c86613d4
       size: 34728
+  train_model:
+    cmd: python REMLA_PROJECT/src/models/model1/train.py
+    deps:
+    - path: REMLA_PROJECT/models/model.h5
+      hash: md5
+      md5: 9af971264dec06ab5acbf377c86613d4
+      size: 34728
+    - path: REMLA_PROJECT/src/models/model1/train.py
+      hash: md5
+      md5: b8668e986220287e4a18414b427c4b22
+      size: 1060
+    outs:
+    - path: REMLA_PROJECT/models/trained_model.h5
+      hash: md5
+      md5: 1987a443f942ccc13a038a2bef169614
+      size: 5463360
+  make_predictions:
+    cmd: python REMLA_PROJECT/src/models/model1/predict.py
+    deps:
+    - path: REMLA_PROJECT/models/trained_model.h5
+      hash: md5
+      md5: 1987a443f942ccc13a038a2bef169614
+      size: 5463360
+    - path: REMLA_PROJECT/src/models/model1/predict.py
+      hash: md5
+      md5: 26d2ecf3a42edb7a660b3f59d9b603ff
+      size: 794
+    outs:
+    - path: REMLA_PROJECT/models/predictions/preds.pkl
+      hash: md5
+      md5: 3ac8d2e3d4f2c5e7d6c41de357d3eb2b
+      size: 2913866
+  evaluate:
+    cmd: python REMLA_PROJECT/src/visualization/evaluation.py
+    deps:
+    - path: REMLA_PROJECT/models/predictions/preds.pkl
+      hash: md5
+      md5: 3ac8d2e3d4f2c5e7d6c41de357d3eb2b
+      size: 2913866
+    - path: REMLA_PROJECT/src/visualization/evaluation.py
+      hash: md5
+      md5: a71c62fb397d08001cca6e55885cf5e7
+      size: 844

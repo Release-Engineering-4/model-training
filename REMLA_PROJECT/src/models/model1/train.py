@@ -13,8 +13,7 @@ def train_model():
         params = yaml.safe_load(file)
 
     with open(
-        "REMLA_PROJECT\\data\\processed\\tokenized_data.pkl", "rb", encoding="utf-8"
-    ) as file:
+        "REMLA_PROJECT\\data\\processed\\tokenized_data.pkl", "rb") as file:
         tokenized_data = pickle.load(file)
 
     x_train = tokenized_data["x_train"]
