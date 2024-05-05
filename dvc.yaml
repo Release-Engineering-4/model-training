@@ -1,0 +1,47 @@
+stages:
+  get_data:
+    cmd: python REMLA_PROJECT/src/data/get_data.py
+    deps:
+    - REMLA_PROJECT/src/data/get_data.py
+    outs:
+    - REMLA_PROJECT/data/raw/test_data.csv
+    - REMLA_PROJECT/data/raw/train_data.csv
+    - REMLA_PROJECT/data/raw/validation_data.csv
+  preprocess_data:
+    cmd: python REMLA_PROJECT/src/data/data_preprocessing.py
+    deps:
+    - REMLA_PROJECT/data/raw/test_data.csv
+    - REMLA_PROJECT/data/raw/train_data.csv
+    - REMLA_PROJECT/data/raw/validation_data.csv
+    - REMLA_PROJECT/src/data/data_preprocessing.py
+    outs:
+    - REMLA_PROJECT/data/processed/char_index.pkl
+    - REMLA_PROJECT/data/processed/tokenized_data.pkl
+  create_model:
+    cmd: python REMLA_PROJECT/src/models/model1/model.py
+    deps:
+    - REMLA_PROJECT/configs/params.yaml
+    - REMLA_PROJECT/data/processed/char_index.pkl
+    - REMLA_PROJECT/data/processed/tokenized_data.pkl
+    - REMLA_PROJECT/src/models/model1/model.py
+    outs:
+    - REMLA_PROJECT/models/model.h5
+  train_model:
+    cmd: python REMLA_PROJECT/src/models/model1/train.py
+    deps:
+    - REMLA_PROJECT/models/model.h5
+    - REMLA_PROJECT/src/models/model1/train.py
+    outs:
+    - REMLA_PROJECT/models/trained_model.h5
+  make_predictions:
+    cmd: python REMLA_PROJECT/src/models/model1/predict.py
+    deps:
+    - REMLA_PROJECT/models/trained_model.h5
+    - REMLA_PROJECT/src/models/model1/predict.py
+    outs:
+    - REMLA_PROJECT/models/predictions/preds.pkl
+  evaluate:
+    cmd: python REMLA_PROJECT/src/visualization/evaluation.py
+    deps:
+    - REMLA_PROJECT/models/predictions/preds.pkl
+    - REMLA_PROJECT/src/visualization/evaluation.py

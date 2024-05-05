@@ -1,0 +1,74 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python REMLA_PROJECT/src/data/get_data.py
+    deps:
+    - path: REMLA_PROJECT/src/data/get_data.py
+      hash: md5
+      md5: 35010ecfd806537fa1aa603a07138b79
+      size: 1053
+    outs:
+    - path: REMLA_PROJECT/data/raw/test_data.csv
+      hash: md5
+      md5: c18b3a0dea1ba32bea0daa58eb2f138d
+      size: 33093256
+    - path: REMLA_PROJECT/data/raw/train_data.csv
+      hash: md5
+      md5: 561259a922aac2ad4adcbf3d75fd7bcd
+      size: 94979237
+    - path: REMLA_PROJECT/data/raw/validation_data.csv
+      hash: md5
+      md5: bf9b9d77434307d8eb2f575482d75ef2
+      size: 46779265
+  preprocess_data:
+    cmd: python REMLA_PROJECT/src/data/data_preprocessing.py
+    deps:
+    - path: REMLA_PROJECT/data/raw/test_data.csv
+      hash: md5
+      md5: c18b3a0dea1ba32bea0daa58eb2f138d
+      size: 33093256
+    - path: REMLA_PROJECT/data/raw/train_data.csv
+      hash: md5
+      md5: 561259a922aac2ad4adcbf3d75fd7bcd
+      size: 94979237
+    - path: REMLA_PROJECT/data/raw/validation_data.csv
+      hash: md5
+      md5: bf9b9d77434307d8eb2f575482d75ef2
+      size: 46779265
+    - path: REMLA_PROJECT/src/data/data_preprocessing.py
+      hash: md5
+      md5: 4bf1affa0c752d716e70c90ae83ed814
+      size: 2161
+    outs:
+    - path: REMLA_PROJECT/data/processed/char_index.pkl
+      hash: md5
+      md5: 941dc7e5461b0a429941866a00102b8c
+      size: 444
+    - path: REMLA_PROJECT/data/processed/tokenized_data.pkl
+      hash: md5
+      md5: af57b345f66e06b7f987caf0e6bdd1f6
+      size: 1547743867
+  create_model:
+    cmd: python REMLA_PROJECT/src/models/model1/model.py
+    deps:
+    - path: REMLA_PROJECT/configs/params.yaml
+      hash: md5
+      md5: 96df200aa46adc2a3d8046983cb66d4a
+      size: 247
+    - path: REMLA_PROJECT/data/processed/char_index.pkl
+      hash: md5
+      md5: 941dc7e5461b0a429941866a00102b8c
+      size: 444
+    - path: REMLA_PROJECT/data/processed/tokenized_data.pkl
+      hash: md5
+      md5: af57b345f66e06b7f987caf0e6bdd1f6
+      size: 1547743867
+    - path: REMLA_PROJECT/src/models/model1/model.py
+      hash: md5
+      md5: 726b2305143693b67a4e2b0e31d64cee
+      size: 1588
+    outs:
+    - path: REMLA_PROJECT/models/model.h5
+      hash: md5
+      md5: 9af971264dec06ab5acbf377c86613d4
+      size: 34728
