@@ -11,4 +11,4 @@ tensorflow
 seaborn
 huggingface_hub 
 datasets 
-
+dvc-gdrive==3.0.1
