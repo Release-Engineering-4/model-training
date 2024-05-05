@@ -113,5 +113,10 @@ stages:
       size: 2913866
     - path: REMLA_PROJECT/src/visualization/evaluation.py
       hash: md5
-      md5: a71c62fb397d08001cca6e55885cf5e7
-      size: 844
+      md5: 1a8a740f6f60169b62718706a1eba1e4
+      size: 1221
+    outs:
+    - path: REMLA_PROJECT/reports/metrics.json
+      hash: md5
+      md5: 851cb6484d4ccd3eb0edd7e38dfd70c4
+      size: 74

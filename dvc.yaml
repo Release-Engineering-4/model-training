@@ -45,3 +45,7 @@ stages:
     deps:
     - REMLA_PROJECT/models/predictions/preds.pkl
     - REMLA_PROJECT/src/visualization/evaluation.py
+    outs:
+    - REMLA_PROJECT/reports/metrics.json
+metrics:
+  - REMLA_PROJECT/reports/metrics.json
