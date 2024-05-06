@@ -1,10 +1,10 @@
 import json
 import pickle
 import seaborn as sns
-from sklearn.metrics import (classification_report, 
-                             confusion_matrix, 
-                             accuracy_score, 
-                             roc_auc_score, 
+from sklearn.metrics import (classification_report,
+                             confusion_matrix,
+                             accuracy_score,
+                             roc_auc_score,
                              f1_score)
 
 def evaluation():
