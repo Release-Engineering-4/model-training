@@ -22,9 +22,9 @@ def load_data():
         pd.DataFrame(testing_data),
         pd.DataFrame(validation_data),
     )
-    df_train.to_csv("REMLA_PROJECT\\data\\raw\\train_data.csv", index=False)
-    df_test.to_csv("REMLA_PROJECT\\data\\raw\\test_data.csv", index=False)
-    df_val.to_csv("REMLA_PROJECT\\data\\raw\\validation_data.csv", index=False)
+    df_train.to_csv("REMLA_PROJECT/data/raw/train_data.csv", index=False)
+    df_test.to_csv("REMLA_PROJECT/data/raw/test_data.csv", index=False)
+    df_val.to_csv("REMLA_PROJECT/data/raw/validation_data.csv", index=False)
 
 
 if __name__ == "__main__":

@@ -1,13 +1,17 @@
+import json
 import pickle
 import seaborn as sns
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score, f1_score
-import json
+from sklearn.metrics import (classification_report, 
+                             confusion_matrix, 
+                             accuracy_score, 
+                             roc_auc_score, 
+                             f1_score)
 
 def evaluation():
     """
     Model evaluation
     """
-    with open("REMLA_PROJECT\\models\\predictions\\preds.pkl", "rb") as file:
+    with open("REMLA_PROJECT/models/predictions/preds.pkl", "rb") as file:
         predictions = pickle.load(file)
     y_test = predictions["y_test"]
     y_pred_binary = predictions["y_pred_binary"]
@@ -28,7 +32,7 @@ def evaluation():
     "f1": round(f1_score(y_test, y_pred_binary),5)
     }
 
-    with open("REMLA_PROJECT\\reports\\metrics.json", "w") as json_file:
+    with open("REMLA_PROJECT/reports/metrics.json", "w", encoding="utf-8") as json_file:
         json.dump(metrics_dict, json_file, indent=4)
 
 

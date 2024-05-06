@@ -10,13 +10,13 @@ def tokenize_data():
     Tokenizes data and saves it.
     """
     training_df = pd.read_csv(
-        "REMLA_PROJECT\\data\\raw\\train_data.csv", dtype={"label": str, "url": str}
+        "REMLA_PROJECT/data/raw/train_data.csv", dtype={"label": str, "url": str}
     )
     testing_df = pd.read_csv(
-        "REMLA_PROJECT\\data\\raw\\test_data.csv", dtype={"label": str, "url": str}
+        "REMLA_PROJECT/data/raw/test_data.csv", dtype={"label": str, "url": str}
     )
     validation_df = pd.read_csv(
-        "REMLA_PROJECT\\data\\raw\\validation_data.csv",
+        "REMLA_PROJECT/data/raw/validation_data.csv",
         dtype={"label": str, "url": str},
     )
 
@@ -50,10 +50,10 @@ def tokenize_data():
         "y_test": y_test,
     }
 
-    with open("REMLA_PROJECT\\data\\processed\\tokenized_data.pkl", "wb") as file:
+    with open("REMLA_PROJECT/data/processed/tokenized_data.pkl", "wb") as file:
         pickle.dump(data, file)
 
-    with open("REMLA_PROJECT\\data\\processed\\char_index.pkl", "wb") as file:
+    with open("REMLA_PROJECT/data/processed/char_index.pkl", "wb") as file:
         pickle.dump(char_index, file)
 
 
