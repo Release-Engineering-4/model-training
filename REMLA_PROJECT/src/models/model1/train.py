@@ -8,13 +8,12 @@ def train_model():
     Train model
     """
 
-    model = load_model("REMLA_PROJECT\\models\\model.h5")
-    with open("REMLA_PROJECT\\configs\\params.yaml", "r", encoding="utf-8") as file:
+    model = load_model("REMLA_PROJECT/models/model.h5")
+    with open("REMLA_PROJECT/configs/params.yaml", "r", encoding="utf-8") as file:
         params = yaml.safe_load(file)
 
     with open(
-        "REMLA_PROJECT\\data\\processed\\tokenized_data.pkl", "rb", encoding="utf-8"
-    ) as file:
+        "REMLA_PROJECT/data/processed/tokenized_data.pkl", "rb") as file:
         tokenized_data = pickle.load(file)
 
     x_train = tokenized_data["x_train"]
@@ -37,7 +36,7 @@ def train_model():
         validation_data=(x_val, y_val),
     )
 
-    model.save("REMLA_PROJECT\\models\\trained_model.h5")
+    model.save("REMLA_PROJECT/models/trained_model.h5")
 
 
 if __name__ == "__main__":

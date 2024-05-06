@@ -10,11 +10,10 @@ def model_definition():
     """
 
     with open(
-        "REMLA_PROJECT\\data\\processed\\char_index.pkl", "rb", encoding="utf-8"
-    ) as file:
+        "REMLA_PROJECT/data/processed/char_index.pkl", "rb") as file:
         char_index = pickle.load(file)
 
-    with open("REMLA_PROJECT\\configs\\params.yaml", "r", encoding="utf-8") as file:
+    with open("REMLA_PROJECT/configs/params.yaml", "r", encoding="utf-8") as file:
         params = yaml.safe_load(file)
 
     model = Sequential()
@@ -50,7 +49,7 @@ def model_definition():
 
     model.add(Dense(len(params["categories"]) - 1, activation="sigmoid"))
 
-    model.save("REMLA_PROJECT\\models\\model.h5")
+    model.save("REMLA_PROJECT/models/model.h5")
 
 
 if __name__ == "__main__":
