@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "remla-project"
+version = "0.1.0"
+description = "ML pipeline for training a NN on the URL phishing task."
+authors = ["Razvan Mihai Popescu <R.Popescu-3@student.tudelft.nl>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+numpy = "1.26.4"
+keras = "2.8"
+tensorflow = "2.8.0"
+scikit-learn = "1.4.2"
+tensorflow-io-gcs-filesystem = "0.24.0"
+protobuf = "3.20"
+gdown = "5.2.0"
+remla-preprocess = "^0.1.0"
+dvc = "^3.50.1"
+dvc-gdrive = "^3.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "3.1.0"
+flake8 = "7.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
