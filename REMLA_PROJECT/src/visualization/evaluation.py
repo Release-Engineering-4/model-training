@@ -1,20 +1,30 @@
 import json
-import pickle
+import os
 import seaborn as sns
-from sklearn.metrics import (classification_report,
-                             confusion_matrix,
-                             accuracy_score,
-                             roc_auc_score,
-                             f1_score)
+import dvc.api
+from remla_preprocess.pre_processing import MLPreprocessor
+from sklearn.metrics import (
+    classification_report,
+    confusion_matrix,
+    accuracy_score,
+    roc_auc_score,
+    f1_score,
+)
+
+params = dvc.api.params_show()
+
 
 def evaluation():
     """
     Model evaluation
     """
-    with open("REMLA_PROJECT/models/predictions/preds.pkl", "rb") as file:
-        predictions = pickle.load(file)
-    y_test = predictions["y_test"]
-    y_pred_binary = predictions["y_pred_binary"]
+    y_test = MLPreprocessor.load_pkl_data(
+        params["predictions_path"] + "label_test_reshaped.pkl"
+    )
+
+    y_pred_binary = MLPreprocessor.load_pkl_data(
+        params["predictions_path"] + "label_pred_binary.pkl"
+    )
 
     # Calculate classification report
     report = classification_report(y_test, y_pred_binary)
@@ -27,12 +37,17 @@ def evaluation():
     sns.heatmap(confusion_mat, annot=True)
 
     metrics_dict = {
-    "accuracy": round(accuracy_score(y_test, y_pred_binary),5),
-    "roc_auc": round(roc_auc_score(y_test, y_pred_binary),5),
-    "f1": round(f1_score(y_test, y_pred_binary),5)
+        "accuracy": round(accuracy_score(y_test, y_pred_binary), 5),
+        "roc_auc": round(roc_auc_score(y_test, y_pred_binary), 5),
+        "f1": round(f1_score(y_test, y_pred_binary), 5),
     }
 
-    with open("REMLA_PROJECT/reports/metrics.json", "w", encoding="utf-8") as json_file:
+    if not os.path.exists(params["metrics_path"]):
+        os.makedirs(params["metrics_path"])
+
+    with open(
+        params["metrics_path"] + "metrics.json", "w", encoding="utf-8"
+    ) as json_file:
         json.dump(metrics_dict, json_file, indent=4)
 
 

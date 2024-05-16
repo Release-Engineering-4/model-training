@@ -1,24 +1,22 @@
-import pickle
+import os
+import dvc.api
 from keras.models import Sequential
 from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropout
-import yaml
+from remla_preprocess.pre_processing import MLPreprocessor
 
+params = dvc.api.params_show()
 
 def model_definition():
     """
     Define model
     """
-
-    with open(
-        "REMLA_PROJECT/data/processed/char_index.pkl", "rb") as file:
-        char_index = pickle.load(file)
-
-    with open("REMLA_PROJECT/configs/params.yaml", "r", encoding="utf-8") as file:
-        params = yaml.safe_load(file)
+    char_index = MLPreprocessor.load_pkl_data(
+        params["tokenizer_path"] + "char_index.pkl"
+    )
 
     model = Sequential()
     voc_size = len(char_index.keys())
-    model.add(Embedding(voc_size + 1, 50))
+    model.add(Embedding(voc_size + 1, 50, input_length=params["max_input_length"]))
 
     model.add(Conv1D(128, 3, activation="tanh"))
     model.add(MaxPooling1D(3))
@@ -49,7 +47,10 @@ def model_definition():
 
     model.add(Dense(len(params["categories"]) - 1, activation="sigmoid"))
 
-    model.save("REMLA_PROJECT/models/model.h5")
+    if not os.path.exists(params["model_path"]):
+        os.makedirs(params["model_path"])
+
+    model.save(params["model_path"] + "model.h5")
 
 
 if __name__ == "__main__":
