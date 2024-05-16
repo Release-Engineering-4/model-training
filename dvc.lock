@@ -1,93 +1,92 @@
 schema: '2.0'
 stages:
   get_data:
-    cmd: python REMLA_PROJECT/src/data/get_data.py
+    cmd: poetry run python REMLA_PROJECT/src/data/preprocess_data.py
     deps:
-    - path: REMLA_PROJECT/src/data/get_data.py
+    - path: REMLA_PROJECT/src/data/preprocess_data.py
       hash: md5
-      md5: f47d4fc1f1e6c809aa25fa4103962f13
-      size: 1044
+      md5: 9e6c709de5e6c166b8a359e6c11192a5
+      size: 1196
+    params:
+      params.yaml:
+        processed_data_path: REMLA_PROJECT/data/processed/
+        raw_data_path: REMLA_PROJECT/data/raw/
     outs:
-    - path: REMLA_PROJECT/data/raw/test_data.csv
+    - path: REMLA_PROJECT/data/processed
       hash: md5
-      md5: c18b3a0dea1ba32bea0daa58eb2f138d
-      size: 33093256
-    - path: REMLA_PROJECT/data/raw/train_data.csv
+      md5: a4f3308fac982d45144ea9fe6966020f.dir
+      size: 1547744394
+      nfiles: 6
+    - path: REMLA_PROJECT/models/architecture
       hash: md5
-      md5: 561259a922aac2ad4adcbf3d75fd7bcd
-      size: 94979237
-    - path: REMLA_PROJECT/data/raw/validation_data.csv
-      hash: md5
-      md5: bf9b9d77434307d8eb2f575482d75ef2
-      size: 46779265
+      md5: 06ce9f122c04f6d8e2af6590565e481d.dir
+      size: 2803
+      nfiles: 2
   preprocess_data:
-    cmd: python REMLA_PROJECT/src/data/data_preprocessing.py
+    cmd: poetry run python REMLA_PROJECT/src/data/preprocess_data.py
     deps:
-    - path: REMLA_PROJECT/data/raw/test_data.csv
+    - path: REMLA_PROJECT/src/data/preprocess_data.py
       hash: md5
-      md5: c18b3a0dea1ba32bea0daa58eb2f138d
-      size: 33093256
-    - path: REMLA_PROJECT/data/raw/train_data.csv
-      hash: md5
-      md5: 561259a922aac2ad4adcbf3d75fd7bcd
-      size: 94979237
-    - path: REMLA_PROJECT/data/raw/validation_data.csv
-      hash: md5
-      md5: bf9b9d77434307d8eb2f575482d75ef2
-      size: 46779265
-    - path: REMLA_PROJECT/src/data/data_preprocessing.py
-      hash: md5
-      md5: b79ed61dadeb7c179df5dac6c1c975b6
-      size: 2146
+      md5: 84dd257899c77a274d88c5aeae791671
+      size: 1427
+    params:
+      params.yaml:
+        processed_data_path: REMLA_PROJECT/data/processed/
+        raw_data_path: REMLA_PROJECT/data/raw/
     outs:
-    - path: REMLA_PROJECT/data/processed/char_index.pkl
+    - path: REMLA_PROJECT/data/processed
       hash: md5
-      md5: 941dc7e5461b0a429941866a00102b8c
-      size: 444
-    - path: REMLA_PROJECT/data/processed/tokenized_data.pkl
+      md5: a4f3308fac982d45144ea9fe6966020f.dir
+      size: 1547744394
+      nfiles: 6
+    - path: REMLA_PROJECT/models/tokenizer
       hash: md5
-      md5: af57b345f66e06b7f987caf0e6bdd1f6
-      size: 1547743867
+      md5: a86d28babfdbab02c5ba2d18f4054236.dir
+      size: 2803
+      nfiles: 2
   create_model:
-    cmd: python REMLA_PROJECT/src/models/model1/model.py
+    cmd: poetry run python REMLA_PROJECT/src/models/model1/model.py
     deps:
-    - path: REMLA_PROJECT/configs/params.yaml
-      hash: md5
-      md5: f1eab6cf20a0e4cfa1544185b461afe2
-      size: 246
-    - path: REMLA_PROJECT/data/processed/char_index.pkl
-      hash: md5
-      md5: 941dc7e5461b0a429941866a00102b8c
-      size: 444
-    - path: REMLA_PROJECT/data/processed/tokenized_data.pkl
-      hash: md5
-      md5: af57b345f66e06b7f987caf0e6bdd1f6
-      size: 1547743867
     - path: REMLA_PROJECT/src/models/model1/model.py
       hash: md5
-      md5: 43909fa7a56fbd75b6082203c2b18714
-      size: 1581
+      md5: d47b7491d2de2c8fd6ff8fc4fe354970
+      size: 1810
+    params:
+      params.yaml:
+        categories:
+        - phishing
+        - legitimate
+        max_input_length: 200
+        model_path: REMLA_PROJECT/models/model/
+        tokenizer_path: REMLA_PROJECT/models/tokenizer/
     outs:
-    - path: REMLA_PROJECT/models/model.h5
+    - path: REMLA_PROJECT/models/model
       hash: md5
-      md5: 9af971264dec06ab5acbf377c86613d4
-      size: 34728
+      md5: af7f3cf3dea4c44bdca1d8434bb89af3.dir
+      size: 1853168
+      nfiles: 1
   train_model:
-    cmd: python REMLA_PROJECT/src/models/model1/train.py
+    cmd: poetry run python REMLA_PROJECT/src/models/model1/train.py
     deps:
-    - path: REMLA_PROJECT/models/model.h5
-      hash: md5
-      md5: 9af971264dec06ab5acbf377c86613d4
-      size: 34728
     - path: REMLA_PROJECT/src/models/model1/train.py
       hash: md5
-      md5: 9c3d1f992d9f9d3e0534309470264262
-      size: 1051
+      md5: 8baed02706ac4a67bc6d0e8668bb464f
+      size: 1438
+    params:
+      params.yaml:
+        batch_train: 5000
+        epoch: 1
+        loss_function: binary_crossentropy
+        model_path: REMLA_PROJECT/models/model/
+        optimizer: adam
+        processed_data_path: REMLA_PROJECT/data/processed/
+        trained_model_path: REMLA_PROJECT/models/trained_model/
     outs:
-    - path: REMLA_PROJECT/models/trained_model.h5
+    - path: REMLA_PROJECT/models/trained_model
       hash: md5
-      md5: ff7014c3c953aba5498e9c591f8c3088
-      size: 5463360
+      md5: 6d7457095d7654a8f33dff36cde3ea36.dir
+      size: 5493032
+      nfiles: 1
   make_predictions:
     cmd: python REMLA_PROJECT/src/models/model1/predict.py
     deps:
