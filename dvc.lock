@@ -88,34 +88,37 @@ stages:
       size: 5493032
       nfiles: 1
   make_predictions:
-    cmd: python REMLA_PROJECT/src/models/model1/predict.py
+    cmd: poetry run python REMLA_PROJECT/src/models/model1/predict.py
     deps:
-    - path: REMLA_PROJECT/models/trained_model.h5
-      hash: md5
-      md5: ff7014c3c953aba5498e9c591f8c3088
-      size: 5463360
     - path: REMLA_PROJECT/src/models/model1/predict.py
       hash: md5
-      md5: fd7d8ff52fd1f92b9f0c6c91d953b662
-      size: 786
+      md5: d597e1533ab648c310613234eed06e71
+      size: 1115
+    params:
+      params.yaml:
+        predictions_path: REMLA_PROJECT/models/predictions/
+        processed_data_path: REMLA_PROJECT/data/processed/
+        trained_model_path: REMLA_PROJECT/models/trained_model/
     outs:
-    - path: REMLA_PROJECT/models/predictions/preds.pkl
+    - path: REMLA_PROJECT/models/predictions
       hash: md5
-      md5: ab6473fe132ca363f7322686018b4592
-      size: 2913866
+      md5: 313c3a336a09f85dcc3ea8dbc8f28d8d.dir
+      size: 4120968
+      nfiles: 2
   evaluate:
-    cmd: python REMLA_PROJECT/src/visualization/evaluation.py
+    cmd: poetry run python REMLA_PROJECT/src/visualization/evaluation.py
     deps:
-    - path: REMLA_PROJECT/models/predictions/preds.pkl
-      hash: md5
-      md5: ab6473fe132ca363f7322686018b4592
-      size: 2913866
     - path: REMLA_PROJECT/src/visualization/evaluation.py
       hash: md5
-      md5: 00a44ab8bbd25cabd13b6c5070842d1e
-      size: 1360
+      md5: 0d383c65bc0701a24611fa92e4fadcf2
+      size: 1570
+    params:
+      params.yaml:
+        metrics_path: REMLA_PROJECT/reports/metrics/
+        predictions_path: REMLA_PROJECT/models/predictions/
     outs:
-    - path: REMLA_PROJECT/reports/metrics.json
+    - path: REMLA_PROJECT/reports/metrics
       hash: md5
-      md5: 79fd98f7d528776702bc6fd81aa355eb
+      md5: 920a4fb58e4dc818a697a4b677b1ada5.dir
       size: 73
+      nfiles: 1

@@ -18,6 +18,7 @@ gdown = "5.2.0"
 remla-preprocess = "^0.1.0"
 dvc = "^3.50.1"
 dvc-gdrive = "^3.0.1"
+seaborn = "^0.13.2"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "3.1.0"
