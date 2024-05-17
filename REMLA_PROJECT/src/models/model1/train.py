@@ -17,21 +17,13 @@ def train_model():
 
     model = load_model(params["model_path"] + "model.h5")
 
-    x_train = MLPreprocessor.load_pkl_data(
-            params["processed_data_path"] + "url_train.pkl"
-        )
+    x_train = MLPreprocessor.load_pkl(params["processed_data_path"] + "url_train.pkl")
 
-    y_train = MLPreprocessor.load_pkl_data(
-            params["processed_data_path"] + "label_train.pkl"
-        )
+    y_train = MLPreprocessor.load_pkl(params["processed_data_path"] + "label_train.pkl")
 
-    x_val = MLPreprocessor.load_pkl_data(
-            params["processed_data_path"] + "url_val.pkl"
-        )
+    x_val = MLPreprocessor.load_pkl(params["processed_data_path"] + "url_val.pkl")
 
-    y_val = MLPreprocessor.load_pkl_data(
-            params["processed_data_path"] + "label_val.pkl"
-        )
+    y_val = MLPreprocessor.load_pkl(params["processed_data_path"] + "label_val.pkl")
 
     model.compile(
         loss=params["loss_function"],

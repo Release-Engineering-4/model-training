@@ -22,11 +22,11 @@ def evaluation():
     """
     Model evaluation
     """
-    y_test = MLPreprocessor.load_pkl_data(
+    y_test = MLPreprocessor.load_pkl(
         params["predictions_path"] + "label_test_reshaped.pkl"
     )
 
-    y_pred_binary = MLPreprocessor.load_pkl_data(
+    y_pred_binary = MLPreprocessor.load_pkl(
         params["predictions_path"] + "label_pred_binary.pkl"
     )
 
@@ -49,10 +49,7 @@ def evaluation():
     if not os.path.exists(params["metrics_path"]):
         os.makedirs(params["metrics_path"])
 
-    with open(
-        params["metrics_path"] + "metrics.json", "w", encoding="utf-8"
-    ) as json_file:
-        json.dump(metrics_dict, json_file, indent=4)
+    MLPreprocessor.save_json(metrics_dict, params["metrics_path"] + "metrics.json", 4)
 
 
 if __name__ == "__main__":
