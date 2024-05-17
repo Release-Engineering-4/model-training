@@ -1,3 +1,7 @@
+"""
+Model training
+"""
+
 import os
 from keras.models import load_model
 import dvc.api

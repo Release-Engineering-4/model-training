@@ -36,7 +36,7 @@ jobs:
 
       - name: Pylint source directories
         working-directory: REMLA_PROJECT/src
-        run: poetry run pylint .
+        run: poetry run pylint $(git ls-files '*.py')
 
       - name: Lint with flake8
         working-directory: REMLA_PROJECT/src

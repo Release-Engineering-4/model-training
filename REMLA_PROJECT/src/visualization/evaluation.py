@@ -1,3 +1,7 @@
+"""
+Model predictions evaluation
+"""
+
 import json
 import os
 import seaborn as sns

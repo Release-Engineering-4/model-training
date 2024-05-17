@@ -1,10 +1,16 @@
+"""
+Define model architecture
+"""
+
 import os
 import dvc.api
 from keras.models import Sequential
-from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropout
+from keras.layers import (Embedding, Conv1D, MaxPooling1D,
+                          Flatten, Dense, Dropout)
 from remla_preprocess.pre_processing import MLPreprocessor
 
 params = dvc.api.params_show()
+
 
 def model_definition():
     """
@@ -16,7 +22,9 @@ def model_definition():
 
     model = Sequential()
     voc_size = len(char_index.keys())
-    model.add(Embedding(voc_size + 1, 50, input_length=params["max_input_length"]))
+    model.add(Embedding(voc_size + 1,
+                        50,
+                        input_length=params["max_input_length"]))
 
     model.add(Conv1D(128, 3, activation="tanh"))
     model.add(MaxPooling1D(3))
