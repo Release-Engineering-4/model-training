@@ -27,7 +27,9 @@ def data_preprocessing():
         MLPreprocessor.load_txt(params["raw_data_path"] + "val.txt")
     )
 
-    trained_data = processor.tokenize_pad_encode_data(train_data, test_data, val_data)
+    trained_data = processor.tokenize_pad_encode_data(train_data,
+                                                      test_data,
+                                                      val_data)
 
     if not os.path.exists(params["processed_data_path"]):
         os.makedirs(params["processed_data_path"])
@@ -37,9 +39,13 @@ def data_preprocessing():
 
     for key, value in trained_data.items():
         if key in ("tokenizer", "char_index"):
-            MLPreprocessor.save_pkl(value, params["tokenizer_path"] + key + ".pkl")
+            MLPreprocessor.save_pkl(value, params["tokenizer_path"]
+                                    + key
+                                    + ".pkl")
         else:
-            MLPreprocessor.save_pkl(value, params["processed_data_path"] + key + ".pkl")
+            MLPreprocessor.save_pkl(value, params["processed_data_path"]
+                                    + key
+                                    + ".pkl")
 
 
 if __name__ == "__main__":

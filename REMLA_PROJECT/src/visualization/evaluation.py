@@ -48,7 +48,8 @@ def evaluation():
     if not os.path.exists(params["metrics_path"]):
         os.makedirs(params["metrics_path"])
 
-    MLPreprocessor.save_json(metrics_dict, params["metrics_path"] + "metrics.json", 4)
+    MLPreprocessor.save_json(metrics_dict, params["metrics_path"]
+                             + "metrics.json", 4)
 
 
 if __name__ == "__main__":

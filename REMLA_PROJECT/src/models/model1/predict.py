@@ -17,9 +17,11 @@ def predict():
     """
     model = load_model(params["trained_model_path"] + "trained_model.h5")
 
-    x_test = MLPreprocessor.load_pkl(params["processed_data_path"] + "url_test.pkl")
+    x_test = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                     + "url_test.pkl")
 
-    y_test = MLPreprocessor.load_pkl(params["processed_data_path"] + "label_test.pkl")
+    y_test = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                     + "label_test.pkl")
 
     y_pred = model.predict(x_test, batch_size=1000)
     y_pred_binary = (np.array(y_pred) > 0.5).astype(int)
