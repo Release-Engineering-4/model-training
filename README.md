@@ -3,7 +3,8 @@ Public github repository for the course CS4295 Release Engineering for Machine L
 
 # Poetry 
 
-This project uses Poetry for dependency management.
+This project uses [Poetry](https://python-poetry.org/) for dependency management.
+To ensure a consistent environment setup, follow the steps below. 
 
 ## Usage
 
@@ -12,10 +13,24 @@ To install poetry use:
 ```bash
 pip install poetry
 ```
+
 To install project dependencies use:
 
 ```bash
 poetry install
+```
+**OPTIONAL STEPS**
+
+To add extra dependencies to .toml file use:
+
+```bash
+poetry add `package-name`
+```
+
+To remove existing dependencies from `pyproject.toml` file use:
+
+```bash
+poetry remove `package-name`
 ```
 
 To update dependencies use: 
@@ -24,35 +39,18 @@ To update dependencies use:
 poetry update
 ```
 
-To add extra dependencies to .toml file use:
-
-```bash
-poetry add `package-name`
-```
-
-To remove existing dependencies from .toml file use:
-
-```bash
-poetry remove `package-name`
-```
-
 # DVC
 
-This project uses DVC as the version-control system.
+This project uses [DVC](https://dvc.org/) as the version-control system.
+To reproduce our ML pipeline experiment, follow the steps below.
 
 ## Usage
 
-To push data to the remote storage use: 
-
-```bash
-dvc push
-```
-
-To pull data from the remote storage use: 
+To ensure you are working with the latest file versions (data/model/tokenizer) from Google Drive, use:
 
 ```bash
 dvc pull
-```
+``` 
 
 To run the pipeline stages use: 
 
@@ -65,6 +63,23 @@ To show all the metrics use:
 ```bash
 dvc metrics show
 ```
+
+**OPTIONAL STEP**
+
+To upload files to remote storage (in case of significant changes), use:
+
+```bash
+dvc push
+ ```
+
+# Cookiecutter 
+
+The project template was created using [Cookiecutter](https://www.cookiecutter.io/). 
+
+# Pylint & Flake8 
+
+To analyze code for errors, enforce coding standards, and look for code smells, we employ [Pylint](https://pylint.readthedocs.io/en/stable/) and [Flake8](https://flake8.pycqa.org/en/latest/).
+
 
 
 
