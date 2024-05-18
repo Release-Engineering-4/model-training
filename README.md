@@ -21,7 +21,7 @@ poetry install
 ```
 **OPTIONAL STEPS**
 
-To add extra dependencies to .toml file use:
+To add extra dependencies to `pyproject.toml` file use:
 
 ```bash
 poetry add `package-name`
