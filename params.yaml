@@ -1,0 +1,20 @@
+loss_function: binary_crossentropy
+optimizer: adam
+sequence_length: 200
+batch_train: 5000
+batch_test: 5000
+categories:
+  - phishing
+  - legitimate
+char_index: null
+epoch: 1
+embedding_dimension: 50
+max_input_length: 200
+
+model_path: REMLA_PROJECT/models/model/
+trained_model_path: REMLA_PROJECT/models/trained_model/
+tokenizer_path: REMLA_PROJECT/models/tokenizer/
+raw_data_path: REMLA_PROJECT/data/raw/
+processed_data_path: REMLA_PROJECT/data/processed/
+predictions_path: REMLA_PROJECT/models/predictions/
+metrics_path: REMLA_PROJECT/reports/metrics/

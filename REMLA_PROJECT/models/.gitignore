@@ -1,2 +1,4 @@
-/model.h5
-/trained_model.h5
+/tokenizer
+/model
+/trained_model
+/predictions

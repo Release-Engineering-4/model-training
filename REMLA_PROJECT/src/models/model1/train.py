@@ -1,6 +1,13 @@
-import pickle
+"""
+Model training
+"""
+
+import os
 from keras.models import load_model
-import yaml
+import dvc.api
+from remla_preprocess.pre_processing import MLPreprocessor
+
+params = dvc.api.params_show()
 
 
 def train_model():
@@ -8,18 +15,19 @@ def train_model():
     Train model
     """
 
-    model = load_model("REMLA_PROJECT/models/model.h5")
-    with open("REMLA_PROJECT/configs/params.yaml", "r", encoding="utf-8") as file:
-        params = yaml.safe_load(file)
+    model = load_model(params["model_path"] + "model.h5")
 
-    with open(
-        "REMLA_PROJECT/data/processed/tokenized_data.pkl", "rb") as file:
-        tokenized_data = pickle.load(file)
+    x_train = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                      + "url_train.pkl")
 
-    x_train = tokenized_data["x_train"]
-    y_train = tokenized_data["y_train"]
-    x_val = tokenized_data["x_val"]
-    y_val = tokenized_data["y_val"]
+    y_train = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                      + "label_train.pkl")
+
+    x_val = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                    + "url_val.pkl")
+
+    y_val = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                    + "label_val.pkl")
 
     model.compile(
         loss=params["loss_function"],
@@ -36,7 +44,10 @@ def train_model():
         validation_data=(x_val, y_val),
     )
 
-    model.save("REMLA_PROJECT/models/trained_model.h5")
+    if not os.path.exists(params["trained_model_path"]):
+        os.makedirs(params["trained_model_path"])
+
+    model.save(params["trained_model_path"] + "trained_model.h5")
 
 
 if __name__ == "__main__":

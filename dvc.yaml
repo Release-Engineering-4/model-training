@@ -1,51 +1,58 @@
 stages:
-  get_data:
-    cmd: python REMLA_PROJECT/src/data/get_data.py
-    deps:
-    - REMLA_PROJECT/src/data/get_data.py
-    outs:
-    - REMLA_PROJECT/data/raw/test_data.csv
-    - REMLA_PROJECT/data/raw/train_data.csv
-    - REMLA_PROJECT/data/raw/validation_data.csv
   preprocess_data:
-    cmd: python REMLA_PROJECT/src/data/data_preprocessing.py
+    cmd: poetry run python REMLA_PROJECT/src/data/preprocess_data.py
+    params:
+    - raw_data_path
+    - processed_data_path
+    - tokenizer_path  
     deps:
-    - REMLA_PROJECT/data/raw/test_data.csv
-    - REMLA_PROJECT/data/raw/train_data.csv
-    - REMLA_PROJECT/data/raw/validation_data.csv
-    - REMLA_PROJECT/src/data/data_preprocessing.py
+    - REMLA_PROJECT/src/data/preprocess_data.py
     outs:
-    - REMLA_PROJECT/data/processed/char_index.pkl
-    - REMLA_PROJECT/data/processed/tokenized_data.pkl
+    - REMLA_PROJECT/data/processed
+    - REMLA_PROJECT/models/tokenizer
   create_model:
-    cmd: python REMLA_PROJECT/src/models/model1/model.py
+    cmd: poetry run python REMLA_PROJECT/src/models/model1/model.py
+    params:
+    - max_input_length
+    - tokenizer_path
+    - categories 
+    - model_path 
     deps:
-    - REMLA_PROJECT/configs/params.yaml
-    - REMLA_PROJECT/data/processed/char_index.pkl
-    - REMLA_PROJECT/data/processed/tokenized_data.pkl
     - REMLA_PROJECT/src/models/model1/model.py
     outs:
-    - REMLA_PROJECT/models/model.h5
+    - REMLA_PROJECT/models/model
   train_model:
-    cmd: python REMLA_PROJECT/src/models/model1/train.py
+    cmd: poetry run python REMLA_PROJECT/src/models/model1/train.py
+    params: 
+    - model_path
+    - processed_data_path
+    - trained_model_path
+    - loss_function
+    - optimizer
+    - batch_train
+    - epoch
     deps:
-    - REMLA_PROJECT/models/model.h5
     - REMLA_PROJECT/src/models/model1/train.py
     outs:
-    - REMLA_PROJECT/models/trained_model.h5
+    - REMLA_PROJECT/models/trained_model
   make_predictions:
-    cmd: python REMLA_PROJECT/src/models/model1/predict.py
+    cmd: poetry run python REMLA_PROJECT/src/models/model1/predict.py
+    params:
+    - trained_model_path
+    - processed_data_path
+    - predictions_path
     deps:
-    - REMLA_PROJECT/models/trained_model.h5
     - REMLA_PROJECT/src/models/model1/predict.py
     outs:
-    - REMLA_PROJECT/models/predictions/preds.pkl
+    - REMLA_PROJECT/models/predictions
   evaluate:
-    cmd: python REMLA_PROJECT/src/visualization/evaluation.py
+    cmd: poetry run python REMLA_PROJECT/src/visualization/evaluation.py
+    params:
+    - predictions_path
+    - metrics_path
     deps:
-    - REMLA_PROJECT/models/predictions/preds.pkl
     - REMLA_PROJECT/src/visualization/evaluation.py
     outs:
-    - REMLA_PROJECT/reports/metrics.json
+    - REMLA_PROJECT/reports/metrics
 metrics:
-  - REMLA_PROJECT/reports/metrics.json
+  - REMLA_PROJECT/reports/metrics/metrics.json

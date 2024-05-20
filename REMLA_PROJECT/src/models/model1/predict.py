@@ -1,26 +1,42 @@
-import pickle
+"""
+Model inference
+"""
+
+import os
 from keras.models import load_model
 import numpy as np
+import dvc.api
+from remla_preprocess.pre_processing import MLPreprocessor
+
+params = dvc.api.params_show()
 
 
 def predict():
     """
     Model prediction
     """
-    model = load_model("REMLA_PROJECT/models/trained_model.h5")
-    with open("REMLA_PROJECT/data/processed/tokenized_data.pkl", "rb") as file:
-        tokenized_data = pickle.load(file)
-    x_test = tokenized_data["x_test"]
-    y_test = tokenized_data["y_test"]
+    model = load_model(params["trained_model_path"] + "trained_model.h5")
+
+    x_test = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                     + "url_test.pkl")
+
+    y_test = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                     + "label_test.pkl")
 
     y_pred = model.predict(x_test, batch_size=1000)
     y_pred_binary = (np.array(y_pred) > 0.5).astype(int)
     y_test = y_test.reshape(-1, 1)
 
-    predictions = {"y_test": y_test, "y_pred_binary": y_pred_binary}
+    if not os.path.exists(params["predictions_path"]):
+        os.makedirs(params["predictions_path"])
 
-    with open("REMLA_PROJECT/models/predictions/preds.pkl", "wb") as file:
-        pickle.dump(predictions, file)
+    MLPreprocessor.save_pkl(
+        y_test, params["predictions_path"] + "label_test_reshaped.pkl"
+    )
+
+    MLPreprocessor.save_pkl(
+        y_pred_binary, params["predictions_path"] + "label_pred_binary.pkl"
+    )
 
 
 if __name__ == "__main__":
