@@ -42,3 +42,8 @@ jobs:
         working-directory: REMLA_PROJECT/src
         run: poetry run flake8 .
       
+      - name: Run tests
+        working-directory: REMLA_PROJECT/tests
+        run: |
+          poetry run pytest
+      
