@@ -1,9 +1,15 @@
+import os
+import sys
 import pytest
 from unittest import mock
 import dvc.api
 import seaborn as sns
 import numpy as np
 from remla_preprocess.pre_processing import MLPreprocessor
+
+# Add the parent directory of `src` to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 from src.visualization import evaluation
 from sklearn.metrics import (
     confusion_matrix,

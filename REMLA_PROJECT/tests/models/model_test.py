@@ -1,3 +1,5 @@
+import os
+import sys
 import pytest
 from unittest import mock
 from unittest.mock import MagicMock
@@ -6,6 +8,10 @@ from keras.models import Sequential
 from keras.layers import (Embedding,
                           Dense)
 from remla_preprocess.pre_processing import MLPreprocessor
+
+# Add the parent directory of `src` to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 from src.models.model1.model import model_definition
 
 # Mock DVC params

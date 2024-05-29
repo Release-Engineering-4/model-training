@@ -1,9 +1,15 @@
+import os
+import sys
 import pytest
 from unittest import mock
 from unittest.mock import MagicMock
 import dvc.api
 import numpy as np
 from remla_preprocess.pre_processing import MLPreprocessor
+
+# Add the parent directory of `src` to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 from src.models.model1.predict import predict
 
 # Mock DVC params

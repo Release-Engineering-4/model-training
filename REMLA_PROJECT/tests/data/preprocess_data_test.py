@@ -1,7 +1,13 @@
+import os
+import sys
 import pytest
 from unittest import mock
 import dvc.api
 from remla_preprocess.pre_processing import MLPreprocessor
+
+# Add the parent directory of `src` to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 from src.data.preprocess_data import data_preprocessing
 
 # Mock DVC params
