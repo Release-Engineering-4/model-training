@@ -78,7 +78,7 @@ The project template was created using [Cookiecutter](https://www.cookiecutter.i
 
 # Pylint & Flake8 
 
-To analyze code for errors, enforce coding standards, and look for code smells, we employ [Pylint](https://pylint.readthedocs.io/en/stable/) and [Flake8](https://flake8.pycqa.org/en/latest/).
+To analyze code for errors, enforce coding standards, and look for code smells, we employ [Pylint](https://pylint.readthedocs.io/en/stable/) and [Flake8](https://flake8.pycqa.org/en/latest/). Since this is a machine learning project we used [dslinter](https://github.com/SERG-Delft/dslinter) which is a pylint plugin made for linting data science and machine learning code.
 
 
 
