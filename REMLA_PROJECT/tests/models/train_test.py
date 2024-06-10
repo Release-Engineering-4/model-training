@@ -31,7 +31,9 @@ def mock_dvc_params():
 def mock_load_model():
     with mock.patch('keras.models.load_model') as mock_load_model:
         mock_model = MagicMock()
-        mock_model.fit.return_value = None  # fit does not return a value that we need to mock
+        mock_model.compile.return_value = None
+        mock_model.fit.return_value = None
+        mock_model.save.return_value = None
         mock_load_model.return_value = mock_model
         yield mock_load_model
 
@@ -44,15 +46,17 @@ def mock_mlpreprocessor():
 @pytest.fixture
 def mock_os():
     with mock.patch('os.makedirs') as mock_makedirs, \
-         mock.patch('os.path.exists', return_value=False):
-        yield mock_makedirs
+         mock.patch('os.path.exists', return_value=False) as mock_exists:
+        yield mock_makedirs, mock_exists
 
 def test_train_model(mock_dvc_params, mock_load_model, mock_mlpreprocessor, mock_os):
     mock_load_pkl, mock_save_pkl = mock_mlpreprocessor
+    mock_makedirs, mock_exists = mock_os
+
     train_model()
 
     # Check that load_model was called with the correct path
-    mock_load_model.assert_called_once_with("/path/to/model/model.h5")
+    mock_load_model.assert_called_once_with("REMLA_PROJECT/models/model/model.h5")
 
     # Check that load_pkl was called with the correct paths
     mock_load_pkl.assert_any_call("/path/to/processed_data/url_train.pkl")
@@ -61,7 +65,7 @@ def test_train_model(mock_dvc_params, mock_load_model, mock_mlpreprocessor, mock
     mock_load_pkl.assert_any_call("/path/to/processed_data/label_val.pkl")
 
     # Check that os.makedirs was called for trained_model_path
-    mock_os.assert_called_once_with("/path/to/trained_model/")
+    mock_makedirs.assert_called_once_with("/path/to/trained_model/")
 
     # Check that the model save method was called with the correct path
     mock_model = mock_load_model.return_value

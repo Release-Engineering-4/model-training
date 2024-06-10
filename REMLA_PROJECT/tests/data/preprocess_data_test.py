@@ -38,8 +38,8 @@ def mock_mlpreprocessor():
 
 @pytest.fixture
 def mock_os():
-    with mock.patch('data_preprocessing.os.makedirs') as mock_makedirs, \
-         mock.patch('data_preprocessing.os.path.exists', return_value=False):
+    with mock.patch('os.makedirs') as mock_makedirs, \
+         mock.patch('os.path.exists', return_value=False):
         yield mock_makedirs
 
 @pytest.fixture
@@ -52,7 +52,7 @@ def mock_load_txt():
     with mock.patch.object(MLPreprocessor, 'load_txt', return_value="dummy_data") as mock_load:
         yield mock_load
 
-def test_data_preprocessing(mock_dvc_params, mock_mlpreprocessor, mock_os, mock_save_pkl, mock_load_txt):
+def test_data_preprocessing(mock_mlpreprocessor, mock_os, mock_save_pkl, mock_load_txt):
     data_preprocessing()
 
     # Check that load_txt was called with correct paths

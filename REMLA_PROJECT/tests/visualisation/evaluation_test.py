@@ -10,7 +10,8 @@ from remla_preprocess.pre_processing import MLPreprocessor
 # Add the parent directory of `src` to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from src.visualization import evaluation
+from src.visualization.evaluation import evaluation
+
 from sklearn.metrics import (
     confusion_matrix,
     accuracy_score,
