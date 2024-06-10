@@ -47,7 +47,7 @@ def test_model_definition(mock_dvc_params, mock_mlpreprocessor, mock_os, mock_mo
     model_definition()
 
     # Check that load_pkl was called with the correct path
-    mock_mlpreprocessor.assert_called_once_with("/path/to/tokenizer/char_index.pkl")
+    mock_mlpreprocessor.assert_called_once_with("REMLA_PROJECT/models/tokenizer/char_index.pkl")
 
     # Check that os.makedirs was called for model_path
     mock_os.assert_called_once_with("/path/to/model/")
