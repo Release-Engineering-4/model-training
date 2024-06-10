@@ -53,7 +53,7 @@ def test_model_definition(mock_mlpreprocessor, mock_os, mock_model_save):
     mock_os.assert_called_once_with("REMLA_PROJECT/models/model/")
 
     # Check that the model save method was called with the correct path
-    mock_model_save.assert_called_once_with(mock.ANY, "REMLA_PROJECT/model/model.h5")
+    mock_model_save.assert_called_once_with(mock.ANY, "REMLA_PROJECT/models/model/model.h5")
 
     # Ensure the correct model architecture is created
     mock_model = mock_model_save.call_args[0][0]
