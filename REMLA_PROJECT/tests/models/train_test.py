@@ -56,7 +56,7 @@ def test_train_model(mock_dvc_params, mock_load_model, mock_mlpreprocessor, mock
     train_model()
 
     # Check that load_model was called with the correct path
-    mock_load_model.assert_called_once_with("/path/to/model/model.h5")
+    mock_load_model.assert_called_once_with("REMLA_PROJECT/models/model/model.h5")
 
     # Check that load_pkl was called with the correct paths
     mock_load_pkl.assert_any_call("/path/to/processed_data/url_train.pkl")
