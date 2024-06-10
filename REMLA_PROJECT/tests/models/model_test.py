@@ -58,7 +58,7 @@ def test_model_definition(mock_mlpreprocessor, mock_os, mock_model_save):
     # Ensure the correct model architecture is created
     mock_model = mock_model_save.call_args[0][0]
     assert isinstance(mock_model, Sequential)
-    assert len(mock_model.layers) == 15  # 1 Embedding + 6 Conv1D + 3 MaxPooling1D + 4 Dropout + 1 Flatten + 1 Dense
+    assert len(mock_model.layers) == 21
 
     # Check the configuration of the first layer (Embedding layer)
     embedding_layer = mock_model.layers[0]

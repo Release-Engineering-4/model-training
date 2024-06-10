@@ -38,8 +38,8 @@ def mock_mlpreprocessor():
 
 @pytest.fixture
 def mock_os():
-    with mock.patch('data_preprocessing.os.makedirs') as mock_makedirs, \
-         mock.patch('data_preprocessing.os.path.exists', return_value=False):
+    with mock.patch('os.makedirs') as mock_makedirs, \
+         mock.patch('os.path.exists', return_value=False):
         yield mock_makedirs
 
 @pytest.fixture
