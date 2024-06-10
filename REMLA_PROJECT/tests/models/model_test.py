@@ -63,12 +63,12 @@ def test_model_definition(mock_mlpreprocessor, mock_os, mock_model_save):
     # Check the configuration of the first layer (Embedding layer)
     embedding_layer = mock_model.layers[0]
     assert isinstance(embedding_layer, Embedding)
-    assert embedding_layer.input_dim == 3  # voc_size + 1 where voc_size = 2
+    assert embedding_layer.input_dim == 3 
     assert embedding_layer.output_dim == 50
     assert embedding_layer.input_length == 200
 
     # Check the configuration of the last layer (Dense layer)
     dense_layer = mock_model.layers[-1]
     assert isinstance(dense_layer, Dense)
-    assert dense_layer.units == 2  # len(params["categories"]) - 1
+    assert dense_layer.units == 1
     assert dense_layer.activation.__name__ == "sigmoid"
