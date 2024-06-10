@@ -17,7 +17,7 @@ from src.models.model1.model import model_definition
 # Mock DVC params
 mock_params = {
     "tokenizer_path": "/path/to/tokenizer/",
-    "max_input_length": 100,
+    "max_input_length": 200,
     "categories": ["cat1", "cat2", "cat3"],
     "model_path": "/path/to/model/"
 }
@@ -65,7 +65,7 @@ def test_model_definition(mock_mlpreprocessor, mock_os, mock_model_save):
     assert isinstance(embedding_layer, Embedding)
     assert embedding_layer.input_dim == 3  # voc_size + 1 where voc_size = 2
     assert embedding_layer.output_dim == 50
-    assert embedding_layer.input_length == 100
+    assert embedding_layer.input_length == 200
 
     # Check the configuration of the last layer (Dense layer)
     dense_layer = mock_model.layers[-1]
