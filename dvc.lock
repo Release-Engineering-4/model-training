@@ -27,21 +27,22 @@ stages:
     deps:
     - path: REMLA_PROJECT/src/data/preprocess_data.py
       hash: md5
-      md5: 84dd257899c77a274d88c5aeae791671
-      size: 1427
+      md5: 50e644463e941b04179f1e6efe28f001
+      size: 1509
     params:
       params.yaml:
         processed_data_path: REMLA_PROJECT/data/processed/
         raw_data_path: REMLA_PROJECT/data/raw/
+        tokenizer_path: REMLA_PROJECT/models/tokenizer/
     outs:
     - path: REMLA_PROJECT/data/processed
       hash: md5
-      md5: a4f3308fac982d45144ea9fe6966020f.dir
-      size: 1547744394
+      md5: 56c290f18c657949a3108b12076e7c84.dir
+      size: 1555444610
       nfiles: 6
     - path: REMLA_PROJECT/models/tokenizer
       hash: md5
-      md5: a86d28babfdbab02c5ba2d18f4054236.dir
+      md5: cc1b48b8e991332b9a97547975639a26.dir
       size: 2803
       nfiles: 2
   create_model:
@@ -49,8 +50,8 @@ stages:
     deps:
     - path: REMLA_PROJECT/src/models/model1/model.py
       hash: md5
-      md5: d47b7491d2de2c8fd6ff8fc4fe354970
-      size: 1810
+      md5: ced54db5c3462eec1f4922fa7f20f404
+      size: 1743
     params:
       params.yaml:
         categories:
@@ -62,7 +63,7 @@ stages:
     outs:
     - path: REMLA_PROJECT/models/model
       hash: md5
-      md5: af7f3cf3dea4c44bdca1d8434bb89af3.dir
+      md5: 12138a7a4958ee1f2d34781a0527e813.dir
       size: 1853168
       nfiles: 1
   train_model:
@@ -110,8 +111,8 @@ stages:
     deps:
     - path: REMLA_PROJECT/src/visualization/evaluation.py
       hash: md5
-      md5: 0d383c65bc0701a24611fa92e4fadcf2
-      size: 1570
+      md5: d6e45a7824fad353efc61ed512ec19b7
+      size: 1459
     params:
       params.yaml:
         metrics_path: REMLA_PROJECT/reports/metrics/
@@ -119,6 +120,63 @@ stages:
     outs:
     - path: REMLA_PROJECT/reports/metrics
       hash: md5
-      md5: 920a4fb58e4dc818a697a4b677b1ada5.dir
-      size: 73
+      md5: 82f0044a3f70f102a79ddb1a10096ac8.dir
+      size: 69
       nfiles: 1
+  create_model_simple:
+    cmd: poetry run python REMLA_PROJECT/src/models/model_simple/model.py
+    deps:
+    - path: REMLA_PROJECT/src/models/model_simple/model.py
+      hash: md5
+      md5: 2224a39c30c1b28e6bac126daff89125
+      size: 573
+    params:
+      params.yaml:
+        categories:
+        - phishing
+        - legitimate
+        max_input_length: 200
+        model_path_simple: REMLA_PROJECT/models/model_simple/
+        tokenizer_path: REMLA_PROJECT/models/tokenizer/
+    outs:
+    - path: REMLA_PROJECT/models/model_simple
+      hash: md5
+      md5: eb4468439b1b04b22a1cefdc8dc66425.dir
+      size: 364
+      nfiles: 1
+  train_simple_model:
+    cmd: poetry run python REMLA_PROJECT/src/models/model_simple/train.py
+    deps:
+    - path: REMLA_PROJECT/src/models/model_simple/train.py
+      hash: md5
+      md5: 9f623fa9013449f6a6d82af2d5dcd5a8
+      size: 1186
+    params:
+      params.yaml:
+        model_path_simple: REMLA_PROJECT/models/model_simple/
+        processed_data_path: REMLA_PROJECT/data/processed/
+        trained_model_path_simple: REMLA_PROJECT/models/trained_model_simple/
+    outs:
+    - path: REMLA_PROJECT/models/trained_model_simple
+      hash: md5
+      md5: c96954421413154ec7c6c5e8366bd4e2.dir
+      size: 11382413
+      nfiles: 1
+  make_simple_predictions:
+    cmd: poetry run python REMLA_PROJECT/src/models/model_simple/predict.py
+    deps:
+    - path: REMLA_PROJECT/src/models/model_simple/predict.py
+      hash: md5
+      md5: d84f14296d728b7b64e27048532726cf
+      size: 1187
+    params:
+      params.yaml:
+        predictions_path_simple: REMLA_PROJECT/models/predictions_simple/
+        processed_data_path: REMLA_PROJECT/data/processed/
+        trained_model_path_simple: REMLA_PROJECT/models/trained_model_simple/
+    outs:
+    - path: REMLA_PROJECT/models/predictions_simple
+      hash: md5
+      md5: 66df90448e914afa1b3f74298ea6c2f1.dir
+      size: 8241606
+      nfiles: 2
