@@ -10,24 +10,20 @@ from remla_preprocess.pre_processing import MLPreprocessor
 params = dvc.api.params_show()
 
 
-def train_model():
+def train_model(model=None):
     """
     Train model
     """
+    if model == None:
+        model = load_model(params["model_path"] + "model.h5")
 
-    model = load_model(params["model_path"] + "model.h5")
+    x_train = MLPreprocessor.load_pkl(params["processed_data_path"] + "url_train.pkl")
 
-    x_train = MLPreprocessor.load_pkl(params["processed_data_path"]
-                                      + "url_train.pkl")
+    y_train = MLPreprocessor.load_pkl(params["processed_data_path"] + "label_train.pkl")
 
-    y_train = MLPreprocessor.load_pkl(params["processed_data_path"]
-                                      + "label_train.pkl")
+    x_val = MLPreprocessor.load_pkl(params["processed_data_path"] + "url_val.pkl")
 
-    x_val = MLPreprocessor.load_pkl(params["processed_data_path"]
-                                    + "url_val.pkl")
-
-    y_val = MLPreprocessor.load_pkl(params["processed_data_path"]
-                                    + "label_val.pkl")
+    y_val = MLPreprocessor.load_pkl(params["processed_data_path"] + "label_val.pkl")
 
     model.compile(
         loss=params["loss_function"],
