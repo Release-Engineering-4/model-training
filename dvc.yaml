@@ -4,7 +4,7 @@ stages:
     params:
     - raw_data_path
     - processed_data_path
-    - tokenizer_path  
+    - tokenizer_path
     deps:
     - REMLA_PROJECT/src/data/preprocess_data.py
     outs:
@@ -15,15 +15,24 @@ stages:
     params:
     - max_input_length
     - tokenizer_path
-    - categories 
-    - model_path 
+    - categories
+    - model_path
     deps:
     - REMLA_PROJECT/src/models/model1/model.py
     outs:
     - REMLA_PROJECT/models/model
+  create_model_simple:
+    cmd: poetry run python REMLA_PROJECT/src/models/model_simple/model.py
+    params:
+    - tokenizer_path
+    - model_path_simple
+    deps:
+    - REMLA_PROJECT/src/models/model_simple/model.py
+    outs:
+    - REMLA_PROJECT/models/model_simple
   train_model:
     cmd: poetry run python REMLA_PROJECT/src/models/model1/train.py
-    params: 
+    params:
     - model_path
     - processed_data_path
     - trained_model_path
@@ -35,6 +44,16 @@ stages:
     - REMLA_PROJECT/src/models/model1/train.py
     outs:
     - REMLA_PROJECT/models/trained_model
+  train_simple_model:
+    cmd: poetry run python REMLA_PROJECT/src/models/model_simple/train.py
+    params:
+    - model_path_simple
+    - processed_data_path
+    - trained_model_path_simple
+    deps:
+    - REMLA_PROJECT/src/models/model_simple/train.py
+    outs:
+    - REMLA_PROJECT/models/trained_model_simple
   make_predictions:
     cmd: poetry run python REMLA_PROJECT/src/models/model1/predict.py
     params:
@@ -45,6 +64,16 @@ stages:
     - REMLA_PROJECT/src/models/model1/predict.py
     outs:
     - REMLA_PROJECT/models/predictions
+  make_simple_predictions:
+    cmd: poetry run python REMLA_PROJECT/src/models/model_simple/predict.py
+    params:
+      - trained_model_path_simple
+      - processed_data_path
+      - predictions_path_simple
+    deps:
+    - REMLA_PROJECT/src/models/model_simple/predict.py
+    outs:
+    - REMLA_PROJECT/models/predictions_simple
   evaluate:
     cmd: poetry run python REMLA_PROJECT/src/visualization/evaluation.py
     params:
@@ -55,4 +84,4 @@ stages:
     outs:
     - REMLA_PROJECT/reports/metrics
 metrics:
-  - REMLA_PROJECT/reports/metrics/metrics.json
+- REMLA_PROJECT/reports/metrics/metrics.json

@@ -18,3 +18,6 @@ raw_data_path: REMLA_PROJECT/data/raw/
 processed_data_path: REMLA_PROJECT/data/processed/
 predictions_path: REMLA_PROJECT/models/predictions/
 metrics_path: REMLA_PROJECT/reports/metrics/
+model_path_simple: REMLA_PROJECT/models/model_simple/
+trained_model_path_simple: REMLA_PROJECT/models/trained_model_simple/
+predictions_path_simple: REMLA_PROJECT/models/predictions_simple/
