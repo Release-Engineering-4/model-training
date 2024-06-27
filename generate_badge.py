@@ -1,9 +1,7 @@
 import anybadge
 import coverage
 
-cov = coverage.Coverage()
-
-cov.exclude("*/__autograph_generated_file*.py")
+cov = coverage.Coverage(config_file=".coveragerc")
 
 cov.load()
 
