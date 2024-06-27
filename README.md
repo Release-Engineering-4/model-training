@@ -2,9 +2,6 @@
 
 Public github repository for the course CS4295 Release Engineering for Machine Learning Applications of Team 4.
 
-![CI](https://github.com/Razvain/model-training/actions/workflows/pipeline.yml/badge.svg)
-
-
 # Poetry
 
 This project uses [Poetry](https://python-poetry.org/) for dependency management.
