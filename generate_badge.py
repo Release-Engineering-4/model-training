@@ -5,9 +5,10 @@ cov = coverage.Coverage(config_file=".coveragerc")
 
 cov.load()
 
-coverage_percent = cov.report()
+coverage_report = cov.report()
+coverage_percent_str = coverage_report.split()[1].strip("%")
 
-coverage_percent = float(coverage_percent.strip("%"))
+coverage_percent = float(coverage_percent_str)
 
 thresholds = {30: "red", 50: "orange", 70: "yellow", 80: "green", 100:"green"}
 
