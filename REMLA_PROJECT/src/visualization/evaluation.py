@@ -17,23 +17,22 @@ from sklearn.metrics import (
 params = dvc.api.params_show()
 
 
-def evaluation():
+def evaluation(y_test=None, y_pred_binary=None):
     """
     Model evaluation
     """
-    y_test = MLPreprocessor.load_pkl(
-        params["predictions_path"] + "label_test_reshaped.pkl"
-    )
+    if y_test is None:
+        y_test = MLPreprocessor.load_pkl(
+            params["predictions_path"] + "label_test_reshaped.pkl"
+        )
+    if y_pred_binary is None:
+        y_pred_binary = MLPreprocessor.load_pkl(
+            params["predictions_path"] + "label_pred_binary.pkl"
+        )
 
-    y_pred_binary = MLPreprocessor.load_pkl(
-        params["predictions_path"] + "label_pred_binary.pkl"
-    )
-
-    # Calculate classification report
     report = classification_report(y_test, y_pred_binary)
     print(f"Classification Report: {report}")
 
-    # Calculate confusion matrix
     confusion_mat = confusion_matrix(y_test, y_pred_binary)
     print(f"Confusion Matrix: {confusion_mat}")
     print(f"Accuracy: {accuracy_score(y_test, y_pred_binary)}")

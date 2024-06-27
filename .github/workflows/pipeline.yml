@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+    
   workflow_dispatch:
 
 jobs:
@@ -13,29 +13,51 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: 3.10.11
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
 
       - name: Install dependencies
         run: poetry install
 
       - name: Pylint source directories
         working-directory: REMLA_PROJECT/src
-        run: poetry run pylint $(git ls-files '*.py')
+        run: poetry run pylint --rcfile=../../.pylintrc $(git ls-files '*.py')
 
       - name: Lint with flake8
         working-directory: REMLA_PROJECT/src
         run: poetry run flake8 .
-      
-      - name: Run tests
-        working-directory: REMLA_PROJECT/tests
+
+      - name: Run tests with coverage
         run: |
-          poetry run pytest
-      
+          poetry run coverage run -m pytest
+          poetry run coverage report -m > test_results.txt
+          poetry run coverage html
+
+      - name: Update README with Test Results
+        run: |
+          echo "## Test Results" >> README.md
+          echo "\`\`\`" >> README.md
+          cat test_results.txt >> README.md
+          echo "\`\`\`" >> README.md
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test_results.txt
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: htmlcov/
