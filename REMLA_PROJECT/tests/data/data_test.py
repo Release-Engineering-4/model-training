@@ -8,7 +8,7 @@ import gdown
 
 params = dvc.api.params_show()
 
-RAW_DATA_PATH = "REMLA_PROJECT/data/"
+RAW_DATA_PATH = "REMLA_PROJECT/data/raw/"
 
 
 @pytest.fixture(scope="session", autouse=True)
