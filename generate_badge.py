@@ -20,4 +20,4 @@ badge_value = f"{coverage_percent:.1f}%"
 
 badge = anybadge.Badge("Coverage", badge_value, thresholds=thresholds, default_color=badge_color)
 
-badge.write_badge("badge.svg")
+badge.write_badge("coverage_badge.svg")
