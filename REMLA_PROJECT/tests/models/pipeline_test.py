@@ -153,14 +153,12 @@ def test_pipeline(
         params["predictions_path"] + "label_pred_binary.pkl"
     )
 
+    start_time2 = time.time()
     predict_model(good_model, preprocessed_data["url_test"][:10], preprocessed_data["label_test"][:10])
+    duration2 = time.time() - start_time2
     good_predictions = processor.load_pkl(
         params["predictions_path"] + "label_pred_binary.pkl"
     )
-
-    print(good_predictions)
-    print(preprocessed_data["label_test"][:5])
-    print(bad_predictions)
 
     good_predictions = good_predictions.flatten()
     bad_predictions = bad_predictions.flatten()
@@ -169,5 +167,6 @@ def test_pipeline(
     accuracy_model_2 = np.mean(bad_predictions == preprocessed_data["label_test"][:10])
 
     assert duration < 150, "Test took too long"
+    assert duration2 < 5, "Predictions took too long"
     assert memory_usage < 150 * 1024 * 1024, "Memory usage too high"
     assert accuracy_model_1 >= accuracy_model_2

@@ -1,0 +1,3 @@
+[run]
+omit =
+    */__autograph_generated_file*.py
