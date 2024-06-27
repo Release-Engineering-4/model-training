@@ -11,8 +11,8 @@ params = dvc.api.params_show()
 RAW_DATA_PATH = "REMLA_PROJECT/data/raw/"
 
 
-@pytest.fixture()
-def download_data(scope="session", autouse=True):
+@pytest.fixture(scope="session", autouse=True)
+def download_data():
     if not os.path.exists(RAW_DATA_PATH):
         os.makedirs(RAW_DATA_PATH)
         gdown.download_folder(
