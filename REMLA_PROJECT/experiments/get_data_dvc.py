@@ -1,8 +1,10 @@
 import pandas as pd
 
-# If we want to get the original data with dvc from a cloud provider like S3 or Google Drive
+# If we want to get the original data with dvc 
+# from a cloud provider like S3 or Google Drive
 # import data into data/raw/external using dvc
-# Then run this script first in the pipeline and change the "file_name" accordingly
+# Then run this script first in the pipeline and 
+# change the "file_name" accordingly
 
 
 def get_data_dvc():
