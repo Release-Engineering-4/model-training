@@ -171,6 +171,20 @@ files = [
 ]
 
 [[package]]
+name = "anybadge"
+version = "1.14.0"
+description = "Simple, flexible badge generator for project badges."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "anybadge-1.14.0-py3-none-any.whl", hash = "sha256:8711a7f7f45317c62a460f14084f005ba665cbebdf2a94e7df53bc3ab35df4c9"},
+    {file = "anybadge-1.14.0.tar.gz", hash = "sha256:47f06e0a6320d3e5eac55c712dc0bab71b9ed85353c591d448653c5a0740783f"},
+]
+
+[package.dependencies]
+packaging = "*"
+
+[[package]]
 name = "appdirs"
 version = "1.4.4"
 description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -4640,4 +4654,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.11"
-content-hash = "0c8e149c085f2382e0990c1b08d320cc4da92ea56e8ba00d185a846f000c6305"
+content-hash = "f2c05b6d195ea8016ca3e64b3c200f8d818923ff9986d27267b5948c3b0378e5"

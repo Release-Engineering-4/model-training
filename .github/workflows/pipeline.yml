@@ -43,13 +43,6 @@ jobs:
           poetry run coverage report -m -i > test_results.txt
           poetry run coverage html -i
 
-      - name: Update README with Test Results
-        run: |
-          echo "## Test Results" >> README.md
-          echo "\`\`\`" >> README.md
-          cat test_results.txt >> README.md
-          echo "\`\`\`" >> README.md
-
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
@@ -62,13 +55,11 @@ jobs:
           name: coverage-report
           path: htmlcov/
       
-      - name: Commit and push changes
-        env:
-          GIT_AUTHOR_EMAIL: ${{ secrets.GIT_AUTHOR_EMAIL }}
-          GIT_AUTHOR_NAME: ${{ secrets.GIT_AUTHOR_NAME }}
-        run: |
-          git config --local user.email "${GIT_AUTHOR_EMAIL}"
-          git config --local user.name "${GIT_AUTHOR_NAME}"
-          git add README.md
-          git commit -m "Update README with latest test results"
-          git push
+      - name: Generate badge
+        run: poetry run python generate_badge.py
+
+      - name: Upload badge
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-badge
+          path: badge.svg
