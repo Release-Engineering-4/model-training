@@ -10,6 +10,8 @@ params = dvc.api.params_show()
 
 RAW_DATA_PATH = "REMLA_PROJECT/data/raw/"
 
+if not os.path.exists("REMLA_PROJECT/models/predictions/"):
+    os.mkdir("REMLA_PROJECT/models/predictions/")
 
 @pytest.fixture(scope="session", autouse=True)
 def download_data():
@@ -19,6 +21,8 @@ def download_data():
             "https://drive.google.com/drive/folders/1MRWfSFhFTCluhst_O-D_Alqhh0aEQrJp",
             output=RAW_DATA_PATH,
         )
+        # Make sure all files are in the same directory
+        # no matter if it is run locally or through workflow
         if os.path.exists(RAW_DATA_PATH + "raw/"):
             for filename in os.listdir(RAW_DATA_PATH + "raw/"):
                 os.rename(RAW_DATA_PATH + "raw/" + filename, RAW_DATA_PATH + filename)
