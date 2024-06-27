@@ -72,6 +72,34 @@ To upload files to remote storage (in case of significant changes), use:
 dvc push
  ```
 
+
+## Testing 
+
+To run the tests for the pre-processing library use:
+
+```bash
+pytest
+```
+
+To run the tests with coverage for the pre-processing library use:
+
+```bash
+coverage run -m pytest -i
+```
+
+To generate the coverage report use:
+
+```bash
+coverage report -m -i
+```
+
+To generate the html of the coverage report use:
+
+```bash
+coverage html -i
+```
+
+
 # Cookiecutter 
 
 The project template was created using [Cookiecutter](https://www.cookiecutter.io/). 
