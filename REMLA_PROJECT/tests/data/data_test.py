@@ -11,14 +11,14 @@ params = dvc.api.params_show()
 RAW_DATA_PATH = "REMLA_PROJECT/data/raw/"
 
 @pytest.fixture()
-def create_prediction_directory():
-    if not os.path.exists("REMLA_PROJECT/models/predictions/"):
-        os.mkdir("REMLA_PROJECT/models/predictions/")
-
-@pytest.fixture()
 def create_tokenizer_directory():
     if not os.path.exists("REMLA_PROJECT/models/tokenizer/"):
         os.mkdir("REMLA_PROJECT/models/tokenizer/")
+
+@pytest.fixture()
+def creatt_processed_directory():
+    if not os.path.exists("REMLA_PROJECT/data/processed/"):
+        os.mkdir("REMLA_PROJECT/data/processed/")
 
 @pytest.fixture(scope="session", autouse=True)
 def download_data():
@@ -119,7 +119,7 @@ def test_robustness(processor, example_data):
     assert trained_data["url_train"][1] in shuffled_trained_data["url_train"]
 
 
-def test_ml_infrastructure(processor, example_data, create_prediction_directory, create_tokenizer_directory):
+def test_ml_infrastructure(processor, example_data, create_tokenizer_directory, create_processed_directory):
     train_data, test_data, val_data = example_data
     split_train_data = processor.split_data_content(train_data)
     split_test_data = processor.split_data_content(test_data)

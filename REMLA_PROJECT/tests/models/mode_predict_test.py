@@ -19,6 +19,10 @@ module_name = "predict_module"
 predict_module = load_module(module_path, module_name)
 predict_model = predict_module.predict
 
+@pytest.fixture()
+def create_prediction_directory():
+    if not os.path.exists("REMLA_PROJECT/models/predictions/"):
+        os.mkdir("REMLA_PROJECT/models/predictions/")
 
 @pytest.fixture
 def mock_data():
@@ -45,7 +49,7 @@ def mock_model():
         ),
     ],
 )
-def test_predict(mock_data, mock_model, x_test, y_test):
+def test_predict(mock_data, mock_model, x_test, y_test, create_prediction_directory):
     with patch("dvc.api.params_show") as mock_params_show, patch(
         "remla_preprocess.pre_processing.MLPreprocessor.load_pkl"
     ) as mock_load_pkl, patch("os.path.exists", return_value=True), patch(
