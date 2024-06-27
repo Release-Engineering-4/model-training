@@ -40,15 +40,8 @@ jobs:
       - name: Run tests with coverage
         run: |
           poetry run coverage run -m pytest
-          poetry run coverage report -m > test_results.txt
-          poetry run coverage html
-
-      - name: Update README with Test Results
-        run: |
-          echo "## Test Results" >> README.md
-          echo "\`\`\`" >> README.md
-          cat test_results.txt >> README.md
-          echo "\`\`\`" >> README.md
+          poetry run coverage report -m -i > test_results.txt
+          poetry run coverage html -i
 
       - name: Upload test results
         uses: actions/upload-artifact@v2
@@ -61,3 +54,12 @@ jobs:
         with:
           name: coverage-report
           path: htmlcov/
+      
+      - name: Generate badge
+        run: poetry run python generate_badge.py
+
+      - name: Upload badge
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-badge
+          path: coverage_badge.svg
