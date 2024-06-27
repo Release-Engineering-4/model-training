@@ -13,12 +13,13 @@ from remla_preprocess.pre_processing import MLPreprocessor
 params = dvc.api.params_show()
 
 
-def model_definition():
+def model_definition(char_index=None):
     """
     Define model
     """
-    char_index = MLPreprocessor.load_pkl(params["tokenizer_path"]
-                                         + "char_index.pkl")
+    if char_index is None:
+        char_index = MLPreprocessor.load_pkl(params["tokenizer_path"]
+                                             + "char_index.pkl")
 
     model = Sequential()
     voc_size = len(char_index.keys())
