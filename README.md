@@ -1,6 +1,6 @@
 # RE-project-team-4
 
-![CI](https://github.com/Razvain/model-training/actions/workflows/pipeline.yml/badge.svg)
+![CI](https://github.com/Release-Engineering-4/model-training/actions/workflows/pipeline.yml/coverage_badge.svg)
 
 Public github repository for the course CS4295 Release Engineering for Machine Learning Applications of Team 4.
 
