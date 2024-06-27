@@ -23,6 +23,7 @@ pytest = "^8.2.1"
 pytest-cov = "^5.0.0"
 importlib = "^1.0.4"
 psutil = "^6.0.0"
+coverage-badge = "^1.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "3.1.0"
