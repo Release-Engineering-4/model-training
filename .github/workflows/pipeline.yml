@@ -34,11 +34,11 @@ jobs:
         run: poetry run pylint --rcfile=../../.pylintrc $(git ls-files '*.py')
 
       - name: Lint with flake8
-        working-directory: REMLA_PROJECT
+        working-directory: REMLA_PROJECT/src
         run: poetry run flake8 .
 
       - name: Run tests with coverage
-        working-directory: REMLA_PROJECT/src
+        working-directory: REMLA_PROJECT
         run: |
           poetry run coverage run -m pytest
           poetry run coverage report -m > test_results.txt
