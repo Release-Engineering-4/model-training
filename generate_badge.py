@@ -16,8 +16,8 @@ for threshold, color in thresholds.items():
         break
 
 badge_value = f"{coverage_percent:.1f}%"
-badge_text = f"Coverage: {badge_value}"
+# badge_text = f"Coverage: {badge_value}"
 
-badge = anybadge.Badge("Coverage", badge_text, badge_color)
+badge = anybadge.Badge("Coverage", badge_value, thresholds)
 
 badge.write_badge("coverage_badge.svg")
