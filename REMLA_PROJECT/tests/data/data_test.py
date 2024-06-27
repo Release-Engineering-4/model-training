@@ -19,8 +19,9 @@ def download_data():
             "https://drive.google.com/drive/folders/1MRWfSFhFTCluhst_O-D_Alqhh0aEQrJp",
             output=RAW_DATA_PATH,
         )
-        if os.path.exists(RAW_DATA_PATH + "/raw/"):
-            os.rename(RAW_DATA_PATH + "/raw/", RAW_DATA_PATH)
+        if os.path.exists(RAW_DATA_PATH + "raw/"):
+            for filename in os.listdir(RAW_DATA_PATH + "raw/"):
+                os.rename(RAW_DATA_PATH + "raw/" + filename, RAW_DATA_PATH + filename)
 
 @pytest.fixture
 def processor():
