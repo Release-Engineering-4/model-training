@@ -2,14 +2,14 @@ import anybadge
 import coverage
 
 cov = coverage.Coverage()
+
+cov.exclude("*/__autograph_generated_file*.py")
+
 cov.load()
 
-coverage_percent = cov.report(
-    file=None
-)  
-coverage_percent = float(
-    coverage_percent.strip("%")
-) 
+coverage_percent = cov.report()
+
+coverage_percent = float(coverage_percent.strip("%"))
 
 thresholds = {30: "red", 50: "orange", 70: "yellow", 80: "green", 100:"green"}
 
