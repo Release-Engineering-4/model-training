@@ -23,7 +23,7 @@ predict_model = predict_module.predict
 @pytest.fixture
 def mock_data():
     return {
-        "x_test": np.random.rand(50, 10), 
+        "x_test": np.random.rand(50, 10),
         "y_test": np.random.randint(0, 2, 50),
     }
 
@@ -38,11 +38,11 @@ def mock_model():
 @pytest.mark.parametrize(
     "x_test, y_test",
     [
-        (None, None), 
+        (None, None),
         (
             np.random.rand(50, 10),
             np.random.randint(0, 2, 50),
-        ),  
+        ),
     ],
 )
 def test_predict(mock_data, mock_model, x_test, y_test):
