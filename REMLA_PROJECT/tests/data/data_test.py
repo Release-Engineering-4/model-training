@@ -16,7 +16,7 @@ def create_tokenizer_directory():
         os.mkdir("REMLA_PROJECT/models/tokenizer/")
 
 @pytest.fixture()
-def creatt_processed_directory():
+def create_processed_directory():
     if not os.path.exists("REMLA_PROJECT/data/processed/"):
         os.mkdir("REMLA_PROJECT/data/processed/")
 
