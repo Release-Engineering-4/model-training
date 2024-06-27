@@ -20,7 +20,6 @@ def download_data(scope="session", autouse=True):
             output=RAW_DATA_PATH,
         )
 
-
 @pytest.fixture
 def processor():
     return MLPreprocessor()
@@ -121,6 +120,21 @@ def test_ml_infrastructure(processor, example_data):
 
 
 @pytest.mark.parametrize("data_slice", ["url_train", "url_test", "url_val"])
+def test_data_slices(processor, example_data, data_slice):
+    train_data, test_data, val_data = example_data
+    split_train_data = processor.split_data_content(train_data)
+    split_test_data = processor.split_data_content(test_data)
+    split_val_data = processor.split_data_content(val_data)
+
+    trained_data = processor.tokenize_pad_encode_data(
+        split_train_data, split_test_data, split_val_data
+    )
+
+    assert data_slice in trained_data
+    assert len(trained_data[data_slice]) > 0
+
+
+@pytest.mark.parametrize("data_slice", ["label_train", "label_test", "label_val"])
 def test_data_slices(processor, example_data, data_slice):
     train_data, test_data, val_data = example_data
     split_train_data = processor.split_data_content(train_data)

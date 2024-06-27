@@ -11,17 +11,19 @@ from remla_preprocess.pre_processing import MLPreprocessor
 params = dvc.api.params_show()
 
 
-def predict():
+def predict(model=None, x_test=None, y_test=None):
     """
     Model prediction
     """
-    model = load_model(params["trained_model_path"] + "trained_model.h5")
+    if model is None:
+        model = load_model(params["trained_model_path"] + "trained_model.h5")
 
-    x_test = MLPreprocessor.load_pkl(params["processed_data_path"]
-                                     + "url_test.pkl")
-
-    y_test = MLPreprocessor.load_pkl(params["processed_data_path"]
-                                     + "label_test.pkl")
+    if x_test is None:
+        x_test = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                        + "url_test.pkl")
+    if y_test is None:
+        y_test = MLPreprocessor.load_pkl(params["processed_data_path"]
+                                        + "label_test.pkl")
 
     y_pred = model.predict(x_test, batch_size=1000)
     y_pred_binary = (np.array(y_pred) > 0.5).astype(int)
